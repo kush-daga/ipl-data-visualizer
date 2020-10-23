@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
       box-sizing: border-box;
     }
     html, body {
-      font-family: Lato,Helvetica-Neue,Helvetica,Arial,sans-serif;
+      font-family: "Commissioner",Helvetica-Neue,Helvetica,Arial,sans-serif;
       width: 100vw;
       overflow-x: hidden;
       margin: 0;
