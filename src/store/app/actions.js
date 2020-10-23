@@ -1,14 +1,37 @@
-import { SET_THEME } from "./types";
+import { FETCH_DATA, DATA_FETCH_SUCCESS, DATA_FETCH_FAIL } from "./types";
+import axios from "axios";
 
-//Action to buy cake
-export const setTheme = () => {
-  return {
-    type: SET_THEME,
+export const fetchData = () => (dispatch) => {
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
   };
+
+  const url = `https://ipl-data-atlan.herokuapp.com/db`;
+
+  dispatch({
+    type: FETCH_DATA,
+  });
+
+  axios
+    .get(url, config)
+    .then((res) => {
+      dispatch({
+        type: DATA_FETCH_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: DATA_FETCH_FAIL,
+        payload: err,
+      });
+    });
 };
 
 const appActions = {
-  setTheme,
+  fetchData,
 };
 
 export default appActions;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import actions from "../../store/actions";
@@ -9,14 +9,27 @@ import Routes from "../../routes";
 import { HashRouter as Router } from "react-router-dom";
 
 function App() {
-  // const theme = useSelector((state) => state.app.theme);
-  // const dispatch = useDispatch();
+  const loading = useSelector((state) => state.app.loading);
+  const dispatch = useDispatch();
+
+  //TODO - Get data from Heroku and store in redux.
+
+  useEffect(() => {
+    //Get data from Heroku
+    console.log(" -- Getting Data -- ");
+    dispatch(actions.appActions.fetchData());
+  }, []);
+
   return (
     <ThemeProvider theme={lightTheme}>
       <Text>Hello WOrlld</Text>
-      <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
-        <Routes />
-      </Router>
+      {loading ? (
+        "Loading"
+      ) : (
+        <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+          <Routes />
+        </Router>
+      )}
     </ThemeProvider>
   );
 }
