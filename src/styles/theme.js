@@ -1,6 +1,6 @@
 export const lightTheme = {
   backgroundSecondary: "#f1f2f6",
-  background: "#a4b0be",
+  background: "#dfe4ea",
   text: "#2f3542",
   textSecondary: "#57606f",
   border: "#3742fa",
