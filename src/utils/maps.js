@@ -36,3 +36,19 @@ export const teamNameToCodeMap = {
   "Royal Challengers Bangalore": 1,
   "Sunrisers Hyderabad": 0,
 };
+
+export const teamCodeToNameMap = {
+  0: "Sunrisers Hyderabad",
+  1: "Royal Challengers Bangalore",
+  2: "Mumbai Indians",
+  3: "Rising Pune Supergiants",
+  4: "Gujarat Lions",
+  5: "Kolkata Knight Riders",
+  6: "Kings XI Punjab",
+  7: "Delhi Daredevils",
+  8: "Chennai Super Kings",
+  9: "Rajasthan Royals",
+  10: "Deccan Chargers",
+  11: "Kochi Tuskers Kerala",
+  12: "Pune Warriors",
+};
