@@ -44,4 +44,9 @@ export const Card = styled.div`
   }
 `;
 
-export const GraphContainer = styled.div``;
+export const GraphContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

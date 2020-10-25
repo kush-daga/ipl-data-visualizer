@@ -6,7 +6,19 @@ import {
   teamNameToCodeMap,
   teamCodeToNameMap,
 } from "../../utils/maps";
-import { Container, Card } from "./styles";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  LabelList,
+  ResponsiveContainer,
+} from "recharts";
+import { Container, Card, GraphContainer } from "./styles";
+
 export default function Home() {
   const data = useSelector((state) => state.app.data);
   const [teamHomeWinsData, setTeamHomeWinsData] = useState([]);
@@ -83,71 +95,104 @@ export default function Home() {
       {loading ? (
         "Loading"
       ) : (
-        <Container>
-          <Card>
-            <div>
-              <h2>Info</h2>
-              <p>
-                This is an overview on how home ground affects the game of a
-                team, and which teams performed the best in thier home grounds
-                and which performed the worst.
-              </p>
-            </div>
-          </Card>
-          <Card>
-            <div>
-              <h2>Max Wins in Home Ground</h2>
-              <h3>
-                Team Name:{" "}
-                <span>
-                  {!!teamWithMaxHomeWins &&
-                    teamCodeToNameMap[teamWithMaxHomeWins.code]}
-                </span>
-              </h3>
-              <h3>
-                Number Of Wins in Home Ground:{" "}
-                <span>{!!teamWithMaxHomeWins && teamWithMaxHomeWins.wins}</span>
-              </h3>
-              <h3>
-                % Won out of all matches played at Home:{" "}
-                <span>
+        <>
+          <Container>
+            <Card>
+              <div>
+                <h2>Info</h2>
+                <p>
+                  This is an overview on how home ground affects the game of a
+                  team, and which teams performed the best in thier home grounds
+                  and which performed the worst.
+                </p>
+              </div>
+            </Card>
+            <Card>
+              <div>
+                <h2>Max Wins in Home Ground</h2>
+                <h3>
+                  Team Name:{" "}
                   <span>
                     {!!teamWithMaxHomeWins &&
-                      teamWithMaxHomeWins.percentWins.toFixed(2)}{" "}
+                      teamCodeToNameMap[teamWithMaxHomeWins.code]}
+                  </span>
+                </h3>
+                <h3>
+                  Number Of Wins in Home Ground:{" "}
+                  <span>
+                    {!!teamWithMaxHomeWins && teamWithMaxHomeWins.wins}
+                  </span>
+                </h3>
+                <h3>
+                  % Won out of all matches played at Home:{" "}
+                  <span>
+                    <span>
+                      {!!teamWithMaxHomeWins &&
+                        teamWithMaxHomeWins.percentWins.toFixed(2)}{" "}
+                      %
+                    </span>
+                  </span>
+                </h3>
+              </div>
+            </Card>
+            <Card>
+              <div>
+                <h2>Max Losses in Home Ground</h2>
+                <h3>
+                  Team Name:{" "}
+                  <span>
+                    {!!teamWithMaxHomeLosses &&
+                      teamCodeToNameMap[teamWithMaxHomeLosses.code]}
+                  </span>
+                </h3>
+                <h3>
+                  Number Of Losses in Home Ground:{" "}
+                  <span>
+                    {!!teamWithMaxHomeLosses && teamWithMaxHomeLosses.losses}
+                  </span>
+                </h3>
+                <h3>
+                  % Loss out of all matches played at Home:{" "}
+                  <span>
+                    {" "}
+                    {!!teamWithMaxHomeLosses &&
+                      teamWithMaxHomeLosses.percentLosses.toFixed(2)}{" "}
                     %
                   </span>
-                </span>
-              </h3>
-            </div>
-          </Card>
-          <Card>
-            <div>
-              <h2>Max Losses in Home Ground</h2>
-              <h3>
-                Team Name:{" "}
-                <span>
-                  {!!teamWithMaxHomeLosses &&
-                    teamCodeToNameMap[teamWithMaxHomeLosses.code]}
-                </span>
-              </h3>
-              <h3>
-                Number Of Losses in Home Ground:{" "}
-                <span>
-                  {!!teamWithMaxHomeLosses && teamWithMaxHomeLosses.losses}
-                </span>
-              </h3>
-              <h3>
-                % Loss out of all matches played at Home:{" "}
-                <span>
-                  {" "}
-                  {!!teamWithMaxHomeLosses &&
-                    teamWithMaxHomeLosses.percentLosses.toFixed(2)}{" "}
-                  %
-                </span>
-              </h3>
-            </div>
-          </Card>
-        </Container>
+                </h3>
+              </div>
+            </Card>
+          </Container>
+          <GraphContainer>
+            <ResponsiveContainer width="100%" height={500}>
+              <BarChart
+                data={teamHomeWinsData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend verticalAlign="top" height={36} />
+
+                <Bar
+                  name="Losses in home"
+                  dataKey="homeLosses"
+                  stackId="a"
+                  fill="#82ca9d"
+                ></Bar>
+                <Bar
+                  name="Wins in home"
+                  dataKey="homeWins"
+                  stackId="a"
+                  fill="#8884d8"
+                >
+                  <LabelList dataKey="name" position="top" />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </GraphContainer>
+        </>
       )}
     </div>
   );

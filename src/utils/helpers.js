@@ -1,3 +1,5 @@
+import { teamCodeToNameMap } from "./maps";
+
 export const getTeamHomeWinsData = (
   data,
   getHomeGround,
@@ -26,6 +28,10 @@ export const getTeamHomeWinsData = (
     ]
 
   */
+  temp.forEach((team) => {
+    let teamName = teamCodeToNameMap[team.code];
+    team["name"] = teamName;
+  });
   data.forEach((match) => {
     let team1Code = getTeamCode[match.team1];
     let team2Code = getTeamCode[match.team2];
