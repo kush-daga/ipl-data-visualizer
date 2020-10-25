@@ -12,7 +12,7 @@ export const SubContainer = styled.div`
 `;
 
 export const Sidebar = styled.div`
-  min-width: 20vw;
+  min-width: 25vw;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -20,18 +20,25 @@ export const Sidebar = styled.div`
   color: ${({ theme }) => theme.textSecondary};
   ul {
     margin-top: 3em;
-    li {
-      font-size: 1em;
-      margin-bottom: 0.7em;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      line-height: 1.5em;
-      cursor: pointer;
-      &:hover {
-        color: ${({ theme }) => theme.text};
-        font-weight: 800;
-      }
+  }
+`;
+
+export const SidebarLink = styled.li`
+  font-size: 1em;
+  margin-bottom: 0.7em !important;
+  font-weight: ${({ active }) => (active ? "800" : "600")};
+  color: ${({ theme, active }) => (active ? theme.text : theme.textSecondary)};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.5em;
+  cursor: pointer;
+  a {
+    color: ${({ theme, active }) =>
+      active ? theme.text : theme.textSecondary};
+    font-weight: ${({ active }) => (active ? "800" : "600")};
+    &:hover {
+      color: ${({ theme }) => theme.text};
+      font-weight: 800;
     }
   }
 `;

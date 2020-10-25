@@ -7,10 +7,15 @@ const Routes = () => {
   return (
     <div style={{ overflowX: "hidden" }}>
       <Switch>
-        <Route exact path="/" component={HomeAway} />
+        <Route exact path="/homeAway" component={HomeAway} />
+        <Route exact path="/" component={HomeDash} />
       </Switch>
     </div>
   );
 };
 
 export default Routes;
+
+const HomeDash = () => {
+  return <div>Hello</div>;
+};

@@ -26,18 +26,14 @@ function App() {
       {loading ? (
         "Loading"
       ) : (
-        <Layout>
-          <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+        <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+          <Layout>
             <Routes />
-          </Router>
-        </Layout>
+          </Layout>
+        </Router>
       )}
     </ThemeProvider>
   );
 }
 
 export default App;
-
-const Text = styled.h1`
-  color: ${({ theme }) => theme.text};
-`;
