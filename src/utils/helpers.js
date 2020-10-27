@@ -1,4 +1,5 @@
-import { teamCodeToNameMap } from "./maps";
+import { teamCodeToNameMap, teamNameToCodeMap } from "./maps";
+import { sortBy, groupBy } from "lodash";
 
 export const getTeamHomeWinsData = (
   data,
@@ -88,4 +89,121 @@ export const getTeamHomeWinsData = (
     }
   });
   setNewData(temp);
+};
+
+export const divideDataYearWise = (data) => {
+  //Re validating data
+  if (data.length > 0) {
+    /*
+     * USe lodash :)
+     */
+
+    //Get list of all the seasons.
+    // const seasons = [...new Set(data.map((item) => item.season))].sort(
+    //   (a, b) => a - b
+    // ); // [2008,2009 ...]
+
+    //Get object of arrays containing season wise data
+    // {2008: [..], 2009: [..], ...}
+    const seasonWise = groupBy(data, "season");
+    return seasonWise;
+  }
+};
+
+export const getTeamwiseData = (data) => {
+  /*
+		return - 
+		{ 
+			teamCode: {
+				wins: 20,
+				losses: 100,
+				draws: 100,
+				matches: 220,
+			}
+		}
+	*/
+  var teamData = {};
+  if (data.length > 0) {
+    data.forEach((match) => {
+      const team1Code = teamNameToCodeMap[match.team1];
+      const team2Code = teamNameToCodeMap[match.team2];
+      const winningTeamCode = teamNameToCodeMap[match.winner];
+      const isTeam1Winner = team1Code === winningTeamCode;
+      const isTeam2Winner = team2Code === winningTeamCode;
+      if (isTeam1Winner) {
+        addWins(teamData, team1Code);
+        addLosses(teamData, team2Code);
+      } else if (isTeam2Winner) {
+        addWins(teamData, team2Code);
+        addLosses(teamData, team1Code);
+      } else {
+        addDraws(teamData, team1Code);
+        addDraws(teamData, team2Code);
+      }
+    });
+    return teamData;
+  }
+};
+
+export const getGroundwiseData = (data) => {
+  /*
+		return - 
+		{ 
+			groundName: frequency
+		}
+	*/
+  var groundData = {};
+  if (data.length > 0) {
+    data.forEach((match) => {
+      const ground = match.city;
+      groundData[ground] =
+        typeof groundData[ground] === "undefined" ? 1 : groundData[ground] + 1;
+    });
+    return groundData;
+  }
+};
+
+const addWins = (teamData, teamCode) => {
+  if (teamData[teamCode]) {
+    teamData[teamCode].wins += 1;
+    teamData[teamCode].matches += 1;
+  } else {
+    teamData[teamCode] = {
+      wins: 1,
+      losses: 0,
+      matches: 1,
+      draws: 0,
+      name: teamCodeToNameMap[teamCode],
+    };
+  }
+};
+
+const addLosses = (teamData, teamCode) => {
+  if (teamData[teamCode]) {
+    teamData[teamCode].losses += 1;
+    teamData[teamCode].matches += 1;
+  } else {
+    teamData[teamCode] = {
+      wins: 0,
+      losses: 1,
+      matches: 1,
+      draws: 0,
+      name: teamCodeToNameMap[teamCode],
+    };
+  }
+};
+
+const addDraws = (teamData, teamCode) => {
+  if (teamData[teamCode]) {
+    teamData[teamCode].draws += 1;
+    teamData[teamCode].matches += 1;
+  } else {
+    teamData[teamCode] = {
+      wins: 0,
+      losses: 0,
+      matches: 1,
+      draws: 1,
+      name: teamCodeToNameMap[teamCode],
+    };
+  }
 };

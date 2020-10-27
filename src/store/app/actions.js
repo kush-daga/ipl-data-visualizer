@@ -8,7 +8,8 @@ export const fetchData = () => (dispatch) => {
     },
   };
 
-  const url = `https://ipl-data-atlan.herokuapp.com/db`;
+  // const url = `https://ipl-data-atlan.herokuapp.com/db`;
+  const url = `http://localhost:5000/db`;
 
   dispatch({
     type: FETCH_DATA,
