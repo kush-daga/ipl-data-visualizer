@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Nav from "../Nav";
 import {
@@ -16,7 +16,6 @@ export default function Layout(props) {
     { name: "Home/Away Analysis", to: "/homeAway" },
     { name: "Season Winners", to: "/seasonWinners" },
     { name: "Home/Away influence on Toss", to: "/homeAwayToss" },
-    { name: "Win Statistice per Team", to: "/winStats" },
     { name: "Man of the Match Analysis", to: "/manOfTheMatch" },
     { name: "Toss Result vs Actual Result", to: "/tossVsActual" },
   ];

@@ -179,13 +179,13 @@ export default function Home() {
                   name="Losses in home"
                   dataKey="homeLosses"
                   stackId="a"
-                  fill="#82ca9d"
+                  fill="#ff4757"
                 ></Bar>
                 <Bar
                   name="Wins in home"
                   dataKey="homeWins"
                   stackId="a"
-                  fill="#8884d8"
+                  fill="#3742fa"
                 >
                   <LabelList dataKey="name" position="top" />
                 </Bar>

@@ -182,13 +182,13 @@ export default function TossVsHome() {
                   name="Toss Losses in home"
                   dataKey="homeTossLosses"
                   stackId="a"
-                  fill="#82ca9d"
+                  fill="#ff4757"
                 ></Bar>
                 <Bar
                   name="Toss Wins in home"
                   dataKey="homeTossWins"
                   stackId="a"
-                  fill="#8884d8"
+                  fill="#3742fa"
                 >
                   <LabelList dataKey="name" position="top" />
                 </Bar>
