@@ -30,6 +30,10 @@ export const Card = styled.div`
     }
     p {
       flex: 1 0 auto;
+      span {
+        font-weight: 600;
+        color: ${({ theme }) => theme.info};
+      }
     }
     h3 {
       flex: 1 0 auto;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getTeamHomeWinsData } from "../../utils/helpers";
+import { getTeamHomeTossWinsData } from "../../utils/helpers";
 import {
   homeGroundToTeamCodeMap,
   teamNameToCodeMap,
@@ -19,9 +19,9 @@ import {
 } from "recharts";
 import { Container, Card, GraphContainer } from "../../styles/globals";
 
-export default function Home() {
+export default function TossVsHome() {
   const data = useSelector((state) => state.app.data);
-  const [teamHomeWinsData, setTeamHomeWinsData] = useState([]);
+  const [teamHomeTossWinsData, setTeamHomeTossWinsData] = useState([]);
   const [teamWithMaxHomeWins, setTeamWithMaxHomeWins] = useState(null);
   const [teamWithMaxHomeLosses, setTeamWithMaxHomeLosses] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,30 +32,30 @@ export default function Home() {
     // console.log(homeGroundToTeamCodeMap, teamNameToCodeMap);
 
     //This will populate teamHomeWinsData
-    getTeamHomeWinsData(
+    getTeamHomeTossWinsData(
       data,
       homeGroundToTeamCodeMap,
       teamNameToCodeMap,
-      setTeamHomeWinsData
+      setTeamHomeTossWinsData
     );
   }, [data]);
 
   //Set Max Home wins and Max Home losses data
   useEffect(() => {
     setLoading(true);
-    if (teamHomeWinsData.length > 0) {
+    if (teamHomeTossWinsData.length > 0) {
       //get Stats ...
-      console.log(teamHomeWinsData);
+      console.log(teamHomeTossWinsData);
 
       // getTeamWithMaxHomeWins();
       let currentTeamCodeWins = 0;
       let currentMaxWins = 0;
       let currentWinPercent = 0;
-      teamHomeWinsData.forEach((team) => {
-        if (team.homeWins > currentMaxWins) {
-          currentMaxWins = team.homeWins;
+      teamHomeTossWinsData.forEach((team) => {
+        if (team.homeTossWins > currentMaxWins) {
+          currentMaxWins = team.homeTossWins;
           currentTeamCodeWins = team.code;
-          currentWinPercent = (team.homeWins / team.homeMatches) * 100;
+          currentWinPercent = (team.homeTossWins / team.homeMatches) * 100;
         }
       });
       setTeamWithMaxHomeWins({
@@ -68,11 +68,11 @@ export default function Home() {
       let currentTeamCodeLosses = 0;
       let currentMaxLosses = 0;
       let currentLossPercent = 0;
-      teamHomeWinsData.forEach((team) => {
-        if (team.homeLosses > currentMaxLosses) {
-          currentMaxLosses = team.homeLosses;
+      teamHomeTossWinsData.forEach((team) => {
+        if (team.homeTossLosses > currentMaxLosses) {
+          currentMaxLosses = team.homeTossLosses;
           currentTeamCodeLosses = team.code;
-          currentLossPercent = (team.homeLosses / team.homeMatches) * 100;
+          currentLossPercent = (team.homeTossLosses / team.homeMatches) * 100;
         }
       });
       setTeamWithMaxHomeLosses({
@@ -81,7 +81,7 @@ export default function Home() {
         percentLosses: currentLossPercent,
       });
     }
-  }, [teamHomeWinsData]);
+  }, [teamHomeTossWinsData]);
 
   useEffect(() => {
     if (teamWithMaxHomeLosses !== null && teamWithMaxHomeWins !== null) {
@@ -101,15 +101,18 @@ export default function Home() {
               <div>
                 <h2>Info</h2>
                 <p>
-                  This is an overview on how home ground affects the game of a
-                  team, and which teams performed the best in thier home grounds
-                  and which performed the worst.
+                  This is an overview on how home ground affects the toss result
+                  of a team, and which teams won the toss in thier home grounds
+                  and which did not. <br />
+                  <span>TL;DR -</span> There is no real affect of Home ground as
+                  you can see the ratio is almost 50:50 for each team. <br />
+                  <span>P.S. </span>Probability is real, chintu.
                 </p>
               </div>
             </Card>
             <Card>
               <div>
-                <h2>Max Wins in Home Ground</h2>
+                <h2>Max Toss Wins in Home Ground</h2>
                 <h3>
                   Team Name:{" "}
                   <span>
@@ -118,13 +121,13 @@ export default function Home() {
                   </span>
                 </h3>
                 <h3>
-                  Number Of Wins in Home Ground:{" "}
+                  Number Of Toss Wins in Home Ground:{" "}
                   <span>
                     {!!teamWithMaxHomeWins && teamWithMaxHomeWins.wins}
                   </span>
                 </h3>
                 <h3>
-                  % Won out of all matches played at Home:{" "}
+                  % Toss Won out of all matches played at Home:{" "}
                   <span>
                     <span>
                       {!!teamWithMaxHomeWins &&
@@ -137,7 +140,7 @@ export default function Home() {
             </Card>
             <Card>
               <div>
-                <h2>Max Losses in Home Ground</h2>
+                <h2>Max Toss Losses in Home Ground</h2>
                 <h3>
                   Team Name:{" "}
                   <span>
@@ -146,13 +149,13 @@ export default function Home() {
                   </span>
                 </h3>
                 <h3>
-                  Number Of Losses in Home Ground:{" "}
+                  Number Of Toss Losses in Home Ground:{" "}
                   <span>
                     {!!teamWithMaxHomeLosses && teamWithMaxHomeLosses.losses}
                   </span>
                 </h3>
                 <h3>
-                  % Loss out of all matches played at Home:{" "}
+                  % Toss Loss out of all matches played at Home:{" "}
                   <span>
                     {" "}
                     {!!teamWithMaxHomeLosses &&
@@ -166,7 +169,7 @@ export default function Home() {
           <GraphContainer>
             <ResponsiveContainer width="100%" height={500}>
               <BarChart
-                data={teamHomeWinsData}
+                data={teamHomeTossWinsData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -176,14 +179,14 @@ export default function Home() {
                 <Legend verticalAlign="top" height={36} />
 
                 <Bar
-                  name="Losses in home"
-                  dataKey="homeLosses"
+                  name="Toss Losses in home"
+                  dataKey="homeTossLosses"
                   stackId="a"
                   fill="#82ca9d"
                 ></Bar>
                 <Bar
-                  name="Wins in home"
-                  dataKey="homeWins"
+                  name="Toss Wins in home"
+                  dataKey="homeTossWins"
                   stackId="a"
                   fill="#8884d8"
                 >
