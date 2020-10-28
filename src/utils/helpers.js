@@ -251,6 +251,45 @@ export const getGroundwiseData = (data) => {
   }
 };
 
+export const setMomDataHelper = (data, setMomData, produce) => {
+  Object.keys(data).forEach((year) => {
+    data[year].forEach((match) => {
+      var mom = match["player_of_match"];
+      setMomData((m) => {
+        return produce(m, (copy) => {
+          if (typeof copy[mom] === "undefined") {
+            copy[mom] = {};
+            copy[mom]["total_moms"] = 1;
+            copy[mom][year] = 1;
+          } else {
+            copy[mom]["total_moms"] = copy[mom]["total_moms"] + 1;
+            typeof copy[mom][year] === "undefined"
+              ? (copy[mom][year] = 1)
+              : (copy[mom][year] = copy[mom][year] + 1);
+          }
+        });
+      });
+    });
+  });
+};
+
+export const getMostMom = async (momData) => {
+  const newObj = {};
+  //Fill new object with only player data and most moms.
+  await Promise.all(
+    Object.keys(momData).map((player) => {
+      newObj[player] = momData[player]["total_moms"];
+    })
+  );
+  //sort the new obj to get back the maximum to lowest mom data.
+  const sortedValues = Object.entries(newObj).sort(([, a], [, b]) => {
+    return b - a;
+  });
+  return sortedValues;
+};
+
+//Internal helpers
+
 const addWins = (teamData, teamCode) => {
   if (teamData[teamCode]) {
     teamData[teamCode].wins += 1;

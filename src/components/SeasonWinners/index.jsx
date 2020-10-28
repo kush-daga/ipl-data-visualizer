@@ -6,6 +6,7 @@ import {
   getGroundwiseData,
 } from "../../utils/helpers";
 import produce from "immer";
+import { Card, Container } from "../../styles/globals";
 export default function SeasonWinners() {
   //gfet data
   const data = useSelector((state) => state.app.data);
@@ -98,5 +99,49 @@ export default function SeasonWinners() {
     console.log(yearWiseMaxLosses);
   }, [yearWiseMaxLosses]);
 
-  return <div>Season Winners</div>;
+  return (
+    <div>
+      <Container>
+        <Card>
+          <div>
+            <h2>Info</h2>
+            <p>
+              This page is to analyze season wise data of winners from 2008-2017
+              and various other analytics data related to Teams and Cities for
+              matches.
+            </p>
+          </div>
+        </Card>
+        <Card>
+          <div>
+            <h2>Season Wise Winner Data</h2>
+            <p>
+              <span>2008 -</span> Rajasthan Royals
+              <span> 2009 -</span> Deccan Chargers
+              <br />
+              <span>2010 -</span> Chennai Super Kings
+              <span> 2011 -</span> Chennai Super Kings
+              <br />
+              <span>2012 -</span> Kolkata Knight Riders
+              <span> 2013 -</span> Mumbai Indians
+              <br />
+              <span>2014 -</span> Kolkata Knight Riders
+              <span> 2015 -</span> Mumbai Indians
+              <br />
+              <span>2016 -</span> Sunrisers Hyderabad
+              <span> 2017 -</span> Mumbai Indians
+              <br />
+              <br />
+              <br />
+              Most Ipl Winning Team - <span>Mumbai Indians</span>
+            </p>
+          </div>
+        </Card>
+      </Container>
+      <Container>
+        <Card></Card>
+        <Card></Card>
+      </Container>
+    </div>
+  );
 }
