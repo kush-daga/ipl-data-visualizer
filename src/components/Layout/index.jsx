@@ -31,7 +31,14 @@ export default function Layout(props) {
 						{links.map((link, index) => {
 							return (
 								<SidebarLink active={location.pathname === link.to}>
-									<Link to={`${link.to}`}>{link.name}</Link>
+									<Link
+										to={`${link.to}`}
+										onClick={() => {
+											setClosed((closed) => !closed);
+										}}
+									>
+										{link.name}
+									</Link>
 								</SidebarLink>
 							);
 						})}
