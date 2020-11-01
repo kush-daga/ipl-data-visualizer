@@ -23,7 +23,6 @@
 - Usage of modern practices like Debouncing for Search fields.
 - Clean code with right abstractions wherever needed.
 
-## Screenshots
 
 
 ## How to Run
