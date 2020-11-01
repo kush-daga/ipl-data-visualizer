@@ -9,8 +9,12 @@ import {
 	SidebarLink,
 } from "./styles";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import useWindowSize from "../../hooks/useWindowSize";
 export default function Layout(props) {
+	const [closed, setClosed] = useState(true);
 	//Sidebar && Nav
+	const windowSize = useWindowSize();
 	const location = useLocation();
 	const links = [
 		{ name: "Home/Away Analysis", to: "/homeAway" },
@@ -22,7 +26,7 @@ export default function Layout(props) {
 		<Container>
 			<Nav></Nav>
 			<SubContainer>
-				<Sidebar>
+				<Sidebar closed={closed}>
 					<ul>
 						{links.map((link, index) => {
 							return (
@@ -32,8 +36,31 @@ export default function Layout(props) {
 							);
 						})}
 					</ul>
+					{windowSize.width < 1000 ? (
+						<button
+							onClick={() => {
+								setClosed((closed) => !closed);
+							}}
+						>
+							{closed ? ">" : "<"}
+						</button>
+					) : null}
 				</Sidebar>
-				<Content>{props.children}</Content>
+				<Content>
+					<>
+						<div>
+							<button
+								onClick={() => {
+									setClosed((closed) => !closed);
+								}}
+							>
+								{closed ? "Open" : "Close"}
+							</button>
+						</div>
+
+						{props.children}
+					</>
+				</Content>
 			</SubContainer>
 		</Container>
 	);

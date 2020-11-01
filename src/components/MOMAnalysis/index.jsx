@@ -12,6 +12,7 @@ import { SearchDropdown } from "./styles";
 import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { useCallback } from "react";
 import { Card, Container } from "../../styles/globals";
+import useWindowSize from "../../hooks/useWindowSize";
 export default function MOMAnalysis() {
 	const data = useSelector((state) => state.app.data);
 	const [momData, setMomData] = useState({});
@@ -20,7 +21,7 @@ export default function MOMAnalysis() {
 	const [chartData, setChartData] = useState([]);
 	const [active, setActive] = useState(null);
 	const [activeResult, setActiveResult] = useState(null);
-
+	const windowSize = useWindowSize();
 	useEffect(() => {
 		if (data.length > 0) {
 			const seasonWiseData = divideDataYearWise(data);
@@ -146,7 +147,10 @@ export default function MOMAnalysis() {
 									? chartData.slice(0, 5).map((player) => {
 											return (
 												<div
-													style={{ width: "33%", height: "300px" }}
+													style={{
+														width: windowSize.width > 1000 ? "33%" : "100%",
+														height: "300px",
+													}}
 													key={player.name}
 												>
 													<p>

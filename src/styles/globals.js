@@ -5,6 +5,10 @@ export const Container = styled.div`
 	flex-direction: ${({ column }) => (!column ? "row" : "column")};
 	flex-wrap: wrap;
 	gap: 2em;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `;
 
 //Facts
@@ -48,6 +52,11 @@ export const Card = styled.div`
 				color: ${({ theme }) => theme.info};
 			}
 		}
+	}
+
+	@media (max-width: 768px) {
+		width: 100%;
+		font-size: 1em;
 	}
 `;
 
