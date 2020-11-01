@@ -1,8 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# IPL DATA VISUALIZER
 
-## Available Scripts
+## Libraries and technologies Used
+
+- Hosted on [Netlify](https://ipl-data-visualizer.netlify.app)
+- Create React App
+- JSON Server [Url](https://github.com/kush-daga/json-server-heroku) for hosting the json Database
+- Redux, react-redux for managing global state
+- ReCharts for all the charts and Graphs
+- Lodash for Utility
+- Axios for API calls
+- Styled Components for styling
+- Immer for immutable data - Specifically produce function
+- redux-thunk for Async actions
+- redux-persist for making the app offline usable.
+
+## Features
+
+- PWA - Progressive Web Application.
+- Visualisation of Data using Charts and graphs.
+- Responsive and Offline Usable - Persisting Data.
+- User Friendly with Modern UI.
+- Usage of modern practices like Debouncing for Search fields.
+- Clean code with right abstractions wherever needed.
+
+## Screenshots
+
+## How to Run
 
 In the project directory, you can run:
+
+### `yarn install`
+
+<br />
+then
+<br />
 
 ### `yarn start`
 
