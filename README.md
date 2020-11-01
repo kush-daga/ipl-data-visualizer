@@ -14,11 +14,11 @@
 - redux-thunk for Async actions
 - redux-persist for making the app offline usable.
 
-## Features
+## Features (Bonus Points Implementation)
 
 - PWA - Progressive Web Application.
 - Visualisation of Data using Charts and graphs.
-- Responsive and Offline Usable - Persisting Data.
+- Responsive and Offline Usable - Persisting Data using redux-persist, data once loaded is stored in local storage.
 - User Friendly with Modern UI.
 - Usage of modern practices like Debouncing for Search fields.
 - Clean code with right abstractions wherever needed.
