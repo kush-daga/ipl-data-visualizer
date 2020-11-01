@@ -15,14 +15,10 @@ const Routes = () => {
 				<Route exact path="/homeAwayToss" component={TossVsHome} />
 				<Route exact path="/seasonWinners" component={SeasonWinners} />
 				<Route exact path="/homeAway" component={HomeAway} />
-				<Route exact path="/" component={HomeDash} />
+				<Route exact path="/" component={HomeAway} />
 			</Switch>
 		</div>
 	);
 };
 
 export default Routes;
-
-const HomeDash = () => {
-	return <div>Hello</div>;
-};
